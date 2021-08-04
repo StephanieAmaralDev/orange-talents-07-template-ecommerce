@@ -1,6 +1,6 @@
 package br.com.zupacademy.stephanie.ecommerce.model.dto;
 
-import br.com.zupacademy.stephanie.ecommerce.model.LimparSenha;
+import br.com.zupacademy.stephanie.ecommerce.model.EncriptaSenha;
 import br.com.zupacademy.stephanie.ecommerce.model.Usuario;
 import br.com.zupacademy.stephanie.ecommerce.validacao.ValorUnico;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -27,7 +27,7 @@ public class UsuarioDto {
     }
 
     public Usuario converter() {
-        return new Usuario(email, new LimparSenha(senha));
+        return new Usuario(email, new EncriptaSenha(senha));
     }
 }
 

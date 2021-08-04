@@ -1,9 +1,7 @@
 
 package br.com.zupacademy.stephanie.ecommerce.model;
 
-import br.com.zupacademy.stephanie.ecommerce.validacao.ValorUnico;
 import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -36,7 +33,7 @@ public class Usuario implements UserDetails {
     @NotNull
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    public Usuario(@NotBlank String email, @NotBlank @Length(min = 6) LimparSenha senha) {
+    public Usuario(@NotBlank String email, @NotBlank @Length(min = 6) EncriptaSenha senha) {
         Assert.hasLength(email, "O email não pode estar vazio");
         Assert.notNull(senha, "A senha não pode ser nula");
 
