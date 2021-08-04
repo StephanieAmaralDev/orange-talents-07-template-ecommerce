@@ -1,12 +1,13 @@
 package br.com.zupacademy.stephanie.ecommerce.model.dto;
 
-        import br.com.zupacademy.stephanie.ecommerce.model.Usuario;
-        import br.com.zupacademy.stephanie.ecommerce.validacao.ValorUnico;
-        import com.fasterxml.jackson.annotation.JsonCreator;
+import br.com.zupacademy.stephanie.ecommerce.model.LimparSenha;
+import br.com.zupacademy.stephanie.ecommerce.model.Usuario;
+import br.com.zupacademy.stephanie.ecommerce.validacao.ValorUnico;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
-        import javax.validation.constraints.Email;
-        import javax.validation.constraints.NotBlank;
-        import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class UsuarioDto {
 
@@ -26,7 +27,7 @@ public class UsuarioDto {
     }
 
     public Usuario converter() {
-        return new Usuario(email, senha);
+        return new Usuario(email, new LimparSenha(senha));
     }
 }
 

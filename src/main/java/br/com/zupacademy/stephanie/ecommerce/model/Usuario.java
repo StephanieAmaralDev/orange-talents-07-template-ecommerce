@@ -1,12 +1,10 @@
 
 package br.com.zupacademy.stephanie.ecommerce.model;
 
+import br.com.zupacademy.stephanie.ecommerce.validacao.ValorUnico;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,6 +15,7 @@ import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -27,6 +26,7 @@ public class Usuario implements UserDetails {
 
     @NotBlank
     @Email
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank
@@ -36,22 +36,16 @@ public class Usuario implements UserDetails {
     @NotNull
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    public Usuario(String email, String senha) {
+    public Usuario(@NotBlank String email, @NotBlank @Length(min = 6) LimparSenha senha) {
+        Assert.hasLength(email, "O email não pode estar vazio");
+        Assert.notNull(senha, "A senha não pode ser nula");
+
         this.email = email;
-        this.senha = senha;
+        this.senha = senha.getSenha();
+        this.dataCadastro = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-    @Deprecated
     public Usuario() {
-    }
-
-    public Usuario(String email, String senha, LocalDateTime dataCadastro) {
-        this.email = email;
-        this.senha = senha;
-        this.dataCadastro = dataCadastro;
     }
 
     @Override
