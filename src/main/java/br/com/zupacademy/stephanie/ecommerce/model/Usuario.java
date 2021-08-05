@@ -1,4 +1,3 @@
-
 package br.com.zupacademy.stephanie.ecommerce.model;
 
 import org.hibernate.validator.constraints.Length;
@@ -43,6 +42,10 @@ public class Usuario implements UserDetails {
     }
 
     public Usuario() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

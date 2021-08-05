@@ -14,7 +14,6 @@ public class EncriptaSenha {
     public EncriptaSenha(@NotBlank @Size(min = 6) String senha) {
         Assert.hasLength(senha, "Insira uma senha válida.");
         Assert.isTrue(senha.length() >= 6, "Insira ao menos 6 caracteres");
-
         this.senha = senha;
     }
     public String getSenha() {
