@@ -23,10 +23,15 @@ public class Produto {
     @Positive
     private Double valor;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<Opiniao> opinioes;
+
+
     @NotNull
     @Column(nullable = false)
     @PositiveOrZero
     private Integer quantidade;
+
 
     @NotNull
     @Size(min = 3)

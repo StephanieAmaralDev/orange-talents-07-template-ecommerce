@@ -34,6 +34,7 @@ public class ProdutoDto {
     @Length(max = 1000)
     private String descricao;
 
+
     @NotNull
     @ValorUnico(field = "id", entity = Categoria.class)
     private Long categoria;

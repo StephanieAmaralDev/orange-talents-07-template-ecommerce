@@ -4,7 +4,6 @@ import br.com.zupacademy.stephanie.ecommerce.model.dto.CategoriaDto;
 import br.com.zupacademy.stephanie.ecommerce.repository.CategoriaRepository;
 import br.com.zupacademy.stephanie.ecommerce.validacao.ValidadorCategoria;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
