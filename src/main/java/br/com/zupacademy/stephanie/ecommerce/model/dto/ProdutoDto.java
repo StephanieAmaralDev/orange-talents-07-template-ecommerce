@@ -53,5 +53,4 @@ public class ProdutoDto {
 
         return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoriaObj.get(), usuario);
     }
-
 }

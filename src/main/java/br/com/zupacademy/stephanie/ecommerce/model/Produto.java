@@ -5,6 +5,7 @@ import org.springframework.util.Assert;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,9 @@ public class Produto {
     @ManyToOne
     private Categoria categoria;
 
+    @ElementCollection
+    private Set<String> imagens;
+
     @NotNull
     @ManyToOne
     private Usuario dono;
@@ -66,9 +70,42 @@ public class Produto {
         this.categoria = categoria;
         this.dataCadastro = LocalDateTime.now();
         this.dono = usuario;
+        this.imagens = new HashSet<>();
+    }
+
+    public Produto() {
 
     }
+    public void adicionaImagens(Set<String> imagens) {
+        this.imagens.addAll(imagens);
+    }
+
+
     public boolean isDono(Usuario usuario){
         return this.dono.equals(usuario);
+    }
+
+    public Usuario getDono() {
+        return dono;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public Set<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public Set<String> getImagens() {
+        return imagens;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }
