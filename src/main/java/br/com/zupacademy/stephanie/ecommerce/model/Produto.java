@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -37,6 +39,9 @@ public class Produto {
     @Embedded
     @ElementCollection
     private Set<Caracteristica> caracteristicas;
+
+    @OneToMany(mappedBy = "produto")
+    private Set<Pergunta> perguntas;
 
     @NotBlank
     @Column(nullable = false, length = 1000)
@@ -75,6 +80,8 @@ public class Produto {
         this.dataCadastro = LocalDateTime.now();
         this.dono = usuario;
         this.imagens = new HashSet<>();
+        this.opinioes = new HashSet<>();
+        this.perguntas = new HashSet<>();
     }
 
     public Produto() {
@@ -111,5 +118,34 @@ public class Produto {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Set<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public <T> Set<T> mapeiaPerguntas(Function<Pergunta, T> mapeador) {
+        return this.perguntas.stream().map(mapeador)
+                .collect(Collectors.toSet());
     }
 }

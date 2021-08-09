@@ -3,6 +3,7 @@ package br.com.zupacademy.stephanie.ecommerce.controller;
 import br.com.zupacademy.stephanie.ecommerce.model.Produto;
 import br.com.zupacademy.stephanie.ecommerce.model.Usuario;
 import br.com.zupacademy.stephanie.ecommerce.model.dto.AdicionarImagemDto;
+import br.com.zupacademy.stephanie.ecommerce.model.dto.DetalhesProdutoDto;
 import br.com.zupacademy.stephanie.ecommerce.model.dto.ProdutoDto;
 import br.com.zupacademy.stephanie.ecommerce.repository.CategoriaRepository;
 import br.com.zupacademy.stephanie.ecommerce.repository.ProdutoRepository;
@@ -60,6 +61,19 @@ public class ProdutoController {
         produtoObj.get().adicionaImagens(listaLinks);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhesProdutoDto> detalhesProduto(@PathVariable Long id) {
+        Optional<Produto> produtoObj = produtoRepository.findById(id);
+
+        //Verifica se o produto está cadastrado
+        if(produtoObj.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        DetalhesProdutoDto detalhesProduto = new DetalhesProdutoDto(produtoObj.get());
+
+        return ResponseEntity.ok().body(detalhesProduto);
     }
 
 }
