@@ -10,6 +10,7 @@ import br.com.zupacademy.stephanie.ecommerce.validacao.files.Uploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -22,9 +23,8 @@ import java.util.Set;
 public class ProdutoController {
 
     private final ProdutoRepository produtoRepository;
-    private final CategoriaRepository categoriaRepository;
     private final Uploader uploaderFile;
-
+    private final CategoriaRepository categoriaRepository;
 
     public ProdutoController(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository, Uploader uploaderFile) {
         this.produtoRepository = produtoRepository;
@@ -33,6 +33,7 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid ProdutoDto produtoDto, @AuthenticationPrincipal Usuario usuario) {
         produtoRepository.save(produtoDto.converter(categoriaRepository, usuario));
 

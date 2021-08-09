@@ -32,7 +32,6 @@ public class Produto {
     @PositiveOrZero
     private Integer quantidade;
 
-
     @NotNull
     @Size(min = 3)
     @Embedded

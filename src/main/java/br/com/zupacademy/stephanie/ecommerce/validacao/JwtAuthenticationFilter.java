@@ -43,6 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private Optional<String> recuperarToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        return Optional.ofNullable(token);
+        return Optional.of(token.substring(7));
     }
 }
