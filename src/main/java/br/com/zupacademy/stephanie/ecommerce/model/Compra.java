@@ -1,5 +1,6 @@
 package br.com.zupacademy.stephanie.ecommerce.model;
 
+import br.com.zupacademy.stephanie.ecommerce.model.dto.PagamentoDto;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -88,5 +89,21 @@ public class Compra {
 
     public StatusCompra getStatus() {
         return status;
+    }
+
+    public void salvarTransacao(PagamentoDto pagamentoDto, String formaPagamento) {
+        Assert.isTrue(!this.compraConcluida(), "Pagamento já efetivado");
+
+        GatewayPagamento gatewayPagamento = GatewayPagamento.valueOf(formaPagamento.toUpperCase());
+        Pagamento pagamento = pagamentoDto.converter(this, gatewayPagamento);
+
+        Assert.isTrue(!listaPagamentos.contains(pagamento), "Transação já realizada");
+
+        listaPagamentos.add(pagamento);
+        this.status = pagamento.getStatusNormalizado();
+    }
+
+    public boolean compraConcluida() {
+        return this.status.equals(StatusCompra.SUCESSO);
     }
 }
